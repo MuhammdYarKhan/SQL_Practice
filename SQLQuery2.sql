@@ -101,3 +101,6 @@ SELECT TOP 3 * FROM customers
  )
 
  SELECT * FROM persons
+
+
+  SELECT * FROM customers WHERE country = 'Germany'
