@@ -1,4 +1,5 @@
 use MyDatabase
+
 --Retrieve All Customer Data
 SELECT * FROM customers
 
@@ -7,6 +8,8 @@ SELECT * FROM orders
 
 --Retrieve each customer's name, country and score
 SELECT first_name,country,score FROM customers
+
+--SQL Clauses
 
 -- WHERE --
 
@@ -87,6 +90,12 @@ SELECT TOP 3 * FROM customers
 
  SELECT * FROM customers WHERE country = 'Germany'
 
+ -- DDL --> Data Defination Language
+
+--> CREATE
+--> ALTER
+--> DROP
+
  /*
  Create a new table called persons with columns: id,
  person_name, birth_date and phone
@@ -102,5 +111,87 @@ SELECT TOP 3 * FROM customers
 
  SELECT * FROM persons
 
+ /*
+ SQL Server mein ALTER TABLE command 
+ ka use existing table ke structure mein
+ changes karne ke liye hota hai.
 
-  SELECT * FROM customers WHERE country = 'Germany'
+Yani agar aapne pehle se table create
+kar liya hai aur ab usmein koi column add,
+delete ya modify karna hai, to aap ALTER TABLE
+use karte hain.
+ */
+
+ --Add a new column called email to the persons table
+    ALTER TABLE persons
+    ADD email VARCHAR(50) NOT NULL
+
+    ALTER TABLE persons 
+    DROP COLUMN phone
+
+
+/*
+SQL Server mein DROP command
+ka use kisi database object ko
+completely delete karne ke liye hota hai.
+
+Yani agar aap kisi Table, Database,
+View ya Stored Procedure ko permanently
+remove karna chahte hain, to DROP command use karte hain.
+*/
+
+DROP TABLE persons
+
+
+-- DML --> Data Manipulation Language
+--> INSERT
+--> UPDATE
+--> DELETE
+
+INSERT INTO customers (id,first_name,country,score) 
+VALUES 
+      (6, 'Anna', 'USA', NULL),
+      (7, 'Sam', NULL, 100)
+
+--Copy data from 'customers' table into 'persons' table
+INSERT INTO persons (id, person_name, birth_date, phone)
+SELECT
+id,
+first_name,
+NULL,
+'Unknown'
+FROM customers
+
+select * from persons
+
+-- Change the score of customer 6 to 0
+
+UPDATE customers
+SET score = 0
+WHERE id = 6
+
+UPDATE customers
+SET country = 'UK'
+WHERE id = 7
+
+select * from customers
+     
+
+  INSERT INTO customers (id,first_name,country,score)
+  VALUES (8,'Sahra',NULL,NULL)
+
+  INSERT INTO customers (id,first_name,country,score)
+  VALUES (9,'Ben','USA',NULL)
+
+  INSERT INTO customers (id,first_name,country,score)
+  VALUES (10,'Vill Jacks','Germany',NULL)
+
+  UPDATE customers
+  SET score = 0,
+      country = 'UK'
+  WHERE id = 8
+
+
+  UPDATE customers
+  SET score = 0
+  WHERE score IS NULL
