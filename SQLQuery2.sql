@@ -1,5 +1,6 @@
 use MyDatabase
 
+
 --Retrieve All Customer Data
 SELECT * FROM customers
 
@@ -195,3 +196,120 @@ select * from customers
   UPDATE customers
   SET score = 0
   WHERE score IS NULL
+
+  --Delete all customers with an ID greater then 5.
+  DELETE FROM customers WHERE id > 5
+
+  select * from persons
+
+  select * from customers where id > 5
+
+  /*
+  TRUNCATE: TRUNCATE SQL Server mein ek
+  DDL (Data Definition Language) command 
+  hai jo kisi table ke andar mojood tamam 
+  records ko ek saath delete kar deti hai, 
+  lekin table ka structure, columns, data types 
+  aur constraints delete nahi karti. Is command 
+  mein WHERE condition use nahi hoti, kyun ke ye 
+  specific records ke bajaye poori table ka data 
+  remove karti hai. TRUNCATE execute karne ke baad 
+  table empty ho jati hai aur agar table mein IDENTITY 
+  column ho to uska counter bhi reset ho jata hai.
+  Is command ka use tab kiya jata hai jab humein kisi
+  table ka existing data completely remove karna ho,
+  lekin table ko future use ke liye maintain rakhna ho
+  */
+
+  TRUNCATE TABLE persons
+
+  select * from persons
+
+  -- CHAPTER 5 --
+  -- FILTERING DATA --
+
+  -- The WHERE operators are
+
+  --> Comparsion operator => =, <>, !=, >, >=, <, <=
+  --> Logical Operators   => AND, OR, NOT
+  --> Range Operators     => BETWEEN
+  --> Membership Operator => IN, NOT IN
+  --> Search Operator     => LIKE
+
+
+  --> Comparsion operator
+  --Retrieve all the customers from Germany
+  SELECT * FROM customers WHERE country = 'Germany'
+
+  --Retrieve all the customers who are not from Germany
+  SELECT * FROM customers WHERE country != 'Germany'
+  SELECT * FROM customers WHERE country <> 'Germany'
+
+--Retireve all customerss with a score greater then 500
+SELECT * FROM customers WHERE score > 500
+
+--Retireve all customerss with a score of 500 or more
+SELECT * FROM customers WHERE score >= 500
+
+--Retrieve all the customers with a score less then 500
+SELECT * FROM customers WHERE score < 500
+
+--Retrieve all the customers with a score of 500 or less
+SELECT * FROM customers WHERE score <= 500 ORDER BY score DESC
+
+
+ --> Logical Operators
+  
+--Retrieve all the customers who are from the USA AND have a score greater then 500
+ SELECT * FROM customers WHERE country = 'USA' AND score > 500
+
+--Retrieve all the customers who are either from USA OR have a score greater then 500
+ SELECT * FROM customers WHERE country = 'USA' OR score > 500
+
+ /*
+ NOT Operator: SQL Server mein NOT
+ ek logical operator hai jo kisi condition
+ ke result ko reverse (opposite) kar deta hai.
+ Agar condition TRUE ho to NOT usay FALSE kar deta 
+ hai aur agar condition FALSE ho to TRUE kar deta hai.
+ Iska use tab hota hai jab humein kisi specific condition ke opposite 
+ records retrieve karne hon. For example, agar humein Students table mein 
+ un students ka data chahiye jo Karachi se belong nahi karte, 
+ to hum WHERE NOT City = 'Karachi' use kar sakte hain.
+ */
+
+ SELECT * FROM customers WHERE NOT country = 'USA'
+
+ --Retrieve all the customers with a score NOT less the 500
+ SELECT * FROM customers WHERE NOT score < 500
+
+
+ --> Range Operators
+ SELECT * FROM customers WHERE score BETWEEN 500 AND 900
+
+ --Retrieve all the customers whose score falls in the range between 100 and 599
+ SELECT * FROM customers WHERE score BETWEEN 100 AND 500
+
+ SELECT * FROM customers WHERE score >= 100 AND score <= 500
+
+--> Membership Operator
+--Retrieve all customers from either Germany OR USA
+SELECT * FROM customers WHERE country = 'Germany' OR country = 'USA'
+
+SELECT * FROM customers WHERE country IN ('Germany','USA')
+
+
+--> Search Operator
+--Find all customers whose first name starts with 'M'
+SELECT * FROM customers WHERE first_name LIKE 'M%'
+
+--Find all customers whose first name ends with 'n'
+SELECT * FROM customers WHERE first_name LIKE '%n'
+
+--Find all customers whose first name contains 'r'
+SELECT * FROM customers WHERE first_name LIKE '%r%'
+
+--Find all customers whose first name has 'r' in the thired position
+SELECT * FROM customers WHERE first_name LIKE '__r%'
+
+SELECT * FROM customers WHERE first_name LIKE '%i_'
